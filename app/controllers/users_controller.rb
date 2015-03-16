@@ -10,6 +10,20 @@
      @user = User.create(user_params)
    end
 
+   def update
+     @user = User.find(params[:id])
+     @user.update_attribute(:gender, user_params[gender])
+     interests = user_params[interests]
+     interests.count.times do |i|
+       @interest = Interest.find_by(name:interests[i])
+       if @interest
+         @interest.users << @user
+       else
+         @user.interests.create(name: interests[i])
+       end
+     end
+   end
+
   private
    def as_json(opts={})
      super(:only => [:id, :email])

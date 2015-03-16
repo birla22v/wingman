@@ -12,6 +12,9 @@ gem 'better_errors'
 #post-gres
 gem 'pg'
 
+# We need CORS for frontend's life to be better! :)
+gem 'rack-cors'
+
 #picture uploads!
 gem 'paperclip','~> 4.2'
 
@@ -19,7 +22,7 @@ gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+#gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

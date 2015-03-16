@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150315194953) do
+ActiveRecord::Schema.define(version: 20150316154231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 20150315194953) do
     t.string   "creator_gender"
     t.string   "creator_name"
     t.string   "creator_interests"
+    t.float    "distance"
+    t.string   "creator_phone_number"
   end
 
   create_table "interests", force: :cascade do |t|
@@ -70,6 +72,7 @@ ActiveRecord::Schema.define(version: 20150315194953) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "authentication_token"
+    t.string   "phone_number"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
