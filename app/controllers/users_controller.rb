@@ -1,32 +1,36 @@
  class UsersController < ApplicationController
    before_action :authenticate_user_from_token!
+  #  skip_before_filter  :verify_authenticity_token
 
    def show
      @user = current_user
      render json: { :user => @user }, status: :created
    end
 
-   def create
-     @user = User.create(user_params)
-   end
+  #  def create
+  #    @user = User.create(user_params)
+  #    render json: {user: @user}
+  #  end
 
    def update
      @user = User.find(params[:id])
-     @user.update_attribute(:gender, user_params[gender])
-     interests = user_params[interests]
+     @user.update_attribute(:gender, user_params[:gender])
+     interests = user_params[:interests].gsub(/\s+/, "").split(",")
      interests.count.times do |i|
        @interest = Interest.find_by(name:interests[i])
-       if @interest
+       binding.pry
+       if @interest && !@user.interests.include?(@interest)
          @interest.users << @user
-       else
+       elsif !@interest
          @user.interests.create(name: interests[i])
        end
      end
+     render json: {user: @user, gender: @user.gender, interests: @user.interests}
    end
 
   private
    def as_json(opts={})
-     super(:only => [:id, :email])
+     super(:only => [:id, :email, :username])
    end
 
    def user_params

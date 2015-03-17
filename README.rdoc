@@ -26,3 +26,52 @@ Things you may want to cover:
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+* User Sign Up
+
+Route: http://localhost:3000/users
+Request: POST
+Form Data: user[email], user[password], user[username]
+Returns:
+{
+    "user": {
+        "email": "test22@test.com",
+        "username": "Bob3",
+        "authentication_token": "VemZ6NH3xLbDRg3YFW-P"
+    }
+}
+
+*User Update
+
+Route:http://localhost:3000/users/:id
+ Example: http://localhost:3000/users/23
+Request: PUT
+Form Data: user[gender], user[interests]
+ Example: user[gender] = "male"
+          user[interests] = "singing, dancing, programming"
+Returns:
+{
+    "user": {
+        "email": "test23@test.com",
+        "username": "Bob2",
+        "authentication_token": "Y7EC3-yPunpUW667Pa-3"
+    },
+    "gender": "male",
+    "interests": [
+        {
+            "id": 2,
+            "name": "dancing",
+            "interest_id": null
+        },
+        {
+            "id": 5,
+            "name": "singing",
+            "interest_id": null
+        },
+        {
+            "id": 9,
+            "name": "swimming",
+            "interest_id": null
+        }
+    ]
+}

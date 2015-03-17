@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations",
-                                       :sessions => "sessions" }  
+                                       :sessions => "sessions" }
   # See how all your routes lay out with "rake routes".
   resources :events
   put 'events/:id/join', to: 'events#join', as: 'join_event'
+  put 'users/:id', to: 'users#update', as: 'user_update'
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

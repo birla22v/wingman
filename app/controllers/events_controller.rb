@@ -50,6 +50,7 @@ class EventsController < ApplicationController
     if !@event.users.include?(@user) && @user.id!=@event.creator_id
       @event.users << @user
     end
+    render json: {:attendees => @event.users}
   end
 
 
