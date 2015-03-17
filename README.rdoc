@@ -41,7 +41,7 @@ Returns:
     }
 }
 
-*User Update
+* User Update
 
 Route:http://localhost:3000/users/:id
  Example: http://localhost:3000/users/23
@@ -74,4 +74,91 @@ Returns:
             "interest_id": null
         }
     ]
+}
+
+* Events Index
+
+Route: http://localhost:3000//events
+Request: GET
+Returns:
+{
+    "events": [
+        {
+            "latitude": 42.700124,
+            "longitude": -75.922749,
+            "id": 5,
+            "venue": "116 MLK Junior Drive NW, Atlanta, GA-30309",
+            "start_time": null,
+            "end_time": "2015-03-13T20:56:03.904Z",
+            "wingman_gender": "male",
+            "radius": null,
+            "creator_id": null,
+            "creator_gender": null,
+            "creator_name": null,
+            "creator_interests": null,
+            "distance": 50.77729450486319,
+            "creator_phone_number": null,
+            "creator_age": null
+        },
+        {
+            "latitude": 42.700124,
+            "longitude": -76.922749,
+            "id": 6,
+            "venue": null,
+            "start_time": null,
+            "end_time": "2015-03-13T19:41:22.752Z",
+            "wingman_gender": null,
+            "radius": null,
+            "creator_id": null,
+            "creator_gender": null,
+            "creator_name": null,
+            "creator_interests": null,
+            "distance": 101.55281046531658,
+            "creator_phone_number": null,
+            "creator_age": null
+        },
+        {
+            "latitude": 42.700124,
+            "longitude": -83.922749,
+            "id": 12,
+            "venue": "Peachtree",
+            "start_time": "2015-03-15T20:36:01.428Z",
+            "end_time": "2015-03-16T01:36:01.428Z",
+            "wingman_gender": "male",
+            "radius": null,
+            "creator_id": 1,
+            "creator_gender": null,
+            "creator_name": null,
+            "creator_interests": "dancing,programming,",
+            "distance": 456.7819834619626,
+            "creator_phone_number": null,
+            "creator_age": null
+        }
+    ]
+}
+
+* Events create
+Route: http://localhost:3000//events
+Request: POST
+Form data: event[venue] = Sidebar
+
+Returns:
+{
+    "event": {
+        "id": 14,
+        "venue": "Sidebar",
+        "latitude": null,
+        "longitude": null,
+        "start_time": null,
+        "end_time": null,
+        "wingman_gender": null,
+        "radius": null,
+        "creator_id": 1,
+        "creator_gender": "male",
+        "creator_name": "Test",
+        "creator_interests": "dancing, programming",
+        "distance": null,
+        "creator_phone_number": null,
+        "creator_age": null
+    }
 }
