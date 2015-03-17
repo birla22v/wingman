@@ -11,6 +11,7 @@ class EventsController < ApplicationController
     @event.update_attribute(:creator_name, @user.username)
     @event.update_attribute(:creator_gender, @user.gender)
     @event.update_attribute(:creator_phone_number, @user.phone_number)
+    @event.update_attribute(:creator_age, @user.age)
     interests=[]
     @user.interests.count.times do |i|
         interests<< @user.interests[i].name
@@ -27,8 +28,16 @@ class EventsController < ApplicationController
     @events = Event.where("wingman_gender = ? OR wingman_gender is NULL",@user.gender)
     @events = @events.where("end_time > ?",DateTime.now)
     #distance from event
-    user_latitude = @user.latitude
-    user_longitude = @user.longitude
+    user_lat = @user.latitude
+    user_long = @user.longitude
+    @events.count.times do |i|
+      event_lat = @events[i].latitude
+      event_long = @events[i].longitude
+      distance = Geocoder::Calculations.distance_between([user_lat,user_long], [event_lat,event_long])
+      @events[i].update_attribute(:distance, distance)
+    end
+    #for each event
+    #find distance between user and event
     if @events
       render json: {:events => @events}, status: :ok
     else
@@ -43,15 +52,6 @@ class EventsController < ApplicationController
     end
   end
 
-  # def show
-  #   @event = Event.find(params[:id])
-  #   @event_creator_name = User.find(@event.creator_id).username
-  #   @event_creator_gender = User.find(@event.creator_id).gender
-  #   @distance=Geocoder::Calculations.distance_between([@user.latitude,@user.longitude], [@event.latitude,@event.longitude])
-  # end
-
-  def update
-  end
 
   private
   def event_params
