@@ -13,7 +13,6 @@ class EventsController < ApplicationController
   end
 
   def create
-    binding.pry
     @event = @user.events.create(event_params)
     @event.update_attribute(:creator_id, @user.id)
     @event.update_attribute(:creator_name, @user.username)
@@ -34,6 +33,7 @@ class EventsController < ApplicationController
   end
 
   def index
+    radius = params[:radius]
     @events = Event.where("wingman_gender = ? OR wingman_gender is NULL",@user.gender)
     @events = @events.where("end_time < ?",DateTime.now)
     #distance from event
@@ -44,6 +44,9 @@ class EventsController < ApplicationController
       event_long = @events[i].longitude
       distance = Geocoder::Calculations.distance_between([user_lat,user_long], [event_lat,event_long])
       @events[i].update_attribute(:distance, distance)
+    end
+    if radius
+      @events = @events.where("distance < ?",radius)
     end
     if @events
       render json: {:events => @events}, status: :ok
