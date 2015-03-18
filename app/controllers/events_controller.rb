@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
+  before_action :authenticate_user_from_token!
   before_action :set_user
+
   # reverse_geocoded_by :latitude, :longitude
   # after_validation :reverse_geocode  # auto-fetch address
   # geocoded_by :full_address   # can also be an IP address
@@ -11,7 +13,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @user = User.find(1)
+    binding.pry
     @event = @user.events.create(event_params)
     @event.update_attribute(:creator_id, @user.id)
     @event.update_attribute(:creator_name, @user.username)

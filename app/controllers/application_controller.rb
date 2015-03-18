@@ -23,24 +23,27 @@ class ApplicationController < ActionController::Base
    end
 
    def set_location!
-     # Check params for lat and long.
-     # @location = ... ?
-     # Do something with Geocoder based on:
-       # Lat/long if supplied.
-       # IP Address if lat/long aren't in params.
+     user_lat = params[:latitude].presence
+     user_long = params[:longitude].presence
+     @user = current_user
+     if user_lat && user_long
+       @user.update_attribute(:latitude,user_lat)
+       @user.update_attribute(:longitude,user_long)
+     else
+       location = request.location
+       @user.update_attribute(:latitude,location.data['latiitude'])
+       @user.update_attribute(:longitude,location.data['longitude'])
+     end
    end
 
    protected
 
-  #  def configure_permitted_parameters
-  #    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :remember_me) }
-  #    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :username, :email, :password, :remember_me) }
-  #    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password, :password_confirmation, :current_password) }
-  #   end
+   def configure_permitted_parameters
+     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :remember_me) }
+     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :username, :email, :password, :remember_me) }
+     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password, :password_confirmation, :current_password) }
+    end
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << :username
-  end
 
    rescue_from ActiveRecord::RecordNotFound do
      render json: nil, status: :not_found
