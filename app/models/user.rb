@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
           :authentication_keys => [:username]
+  has_many :conversations, :foreign_key => :sender_id
   has_many :attendees
   has_and_belongs_to_many :interests
   has_many :events, through: :attendees
@@ -18,8 +19,6 @@ class User < ActiveRecord::Base
        self.authentication_token = generate_authentication_token
      end
    end
-
-
 
    def self.find_for_database_authentication(warden_conditions)
       conditions = warden_conditions.dup

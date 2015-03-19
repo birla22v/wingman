@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   put 'events/:id/join', to: 'events#join', as: 'join_event'
   put 'users/:id', to: 'users#update', as: 'user_update'
 
+  resources :conversations do
+   resources :messages
+  end
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
   root to: "home#index"
