@@ -6,24 +6,17 @@ class MessagesController < ApplicationController
     @message = @conversation.messages.build(message_params)
     @message.user_id = current_user.id
     @message.save!
+    notification = {
+      device_tokens: [params[:device_token_one], params[:device_token_two]],
+      alert: @message,
+      sound: "default",
+      badge: 1
+    }
 
-    @path = conversation_path(@conversation)
+    ZeroPush.notify(notification)
   end
 
-  def index
-    @conversation = Conversation.find(params[:conversation_id])
-    sender_id = @conversation.sender_id
-    recipient_id = @conversation.recipient_id
-    @conversations= Conversation.where("(sender_id = ? AND recipient_id = ?) OR (sender_id = ? AND recipient_id = ?) ",
-    sender_id,recipient_id, recipient_id,sender_id)
-    @messages = []
-    @conversations.count.times do |i|
-     count = @conversations[i].messages.count
-       count.times do |j|
-          @messages << @conversations[i].messages[j]
-       end
-    end
-  end
+  
 
   private
 

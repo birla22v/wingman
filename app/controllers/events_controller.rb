@@ -7,6 +7,8 @@ class EventsController < ApplicationController
   # geocoded_by :full_address   # can also be an IP address
   # after_validation :geocode          # auto-fetch coordinates
 
+  #TODO: Pagination?
+
   def destroy
     @event = Event.find(params[:id])
     @event.destroy
@@ -14,11 +16,8 @@ class EventsController < ApplicationController
 
   def create
     @event = @user.events.create(event_params)
-    @event.update_attribute(:creator_id, @user.id)
-    @event.update_attribute(:creator_name, @user.username)
-    @event.update_attribute(:creator_gender, @user.gender)
-    @event.update_attribute(:creator_phone_number, @user.phone_number)
-    @event.update_attribute(:creator_age, @user.age)
+    @event.update(:creator_id => @user.id,:creator_name => @user.username,:creator_gender=> @user.gender,
+    :creator_phone_number => @user.phone_number,:creator_age=> @user.age)
     set_location
     interests=[]
     @user.interests.count.times do |i|
@@ -46,7 +45,7 @@ class EventsController < ApplicationController
       @events[i].update_attribute(:distance, distance)
     end
     if radius
-      @events = @events.where("distance < ?",radius)
+      @events = @events.where("distance <= ?",radius)
     end
     if @events
       render json: {:events => @events}, status: :ok

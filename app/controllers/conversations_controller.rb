@@ -11,15 +11,27 @@ class ConversationsController < ApplicationController
     render json: { conversation_id: @conversation.id }
   end
 
-  # def show
-  #   @conversation = Conversation.find(params[:id])
-  #   @reciever = interlocutor(@conversation)
-  #   @messages = @conversation.messages
-  #   @message = Message.new
-  # end
+  def show
+    @conversation = Conversation.find(params[:conversation_id])
+    sender_id = @conversation.sender_id
+    recipient_id = @conversation.recipient_id
+    @conversations= Conversation.where("(sender_id = ? AND recipient_id = ?) OR (sender_id = ? AND recipient_id = ?) ",
+    sender_id,recipient_id, recipient_id,sender_id)
+    @messages = []
+    @conversations.count.times do |i|
+     count = @conversations[i].messages.count
+       count.times do |j|
+          @messages << @conversations[i].messages[j]
+       end
+    end
+    #TODO: sort messages by created_at, render messages...maybe last 10
+  end
+
 
   def index
     @conversations= Conversation.where("sender_id = ? OR recipient_id = ?", @user.id,@user.id)
+    #TODO: in order of last updated
+    render json: { conversations: @conversations}
   end
 
   private
@@ -27,7 +39,4 @@ class ConversationsController < ApplicationController
     params.permit(:sender_id, :recipient_id)
   end
 
-  # def interlocutor(conversation)
-  #   current_user == conversation.recipient ? conversation.sender : conversation.recipient
-  # end
 end
