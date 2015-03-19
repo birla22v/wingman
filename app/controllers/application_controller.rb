@@ -29,10 +29,6 @@ class ApplicationController < ActionController::Base
      if user_lat && user_long
        @user.update_attribute(:latitude,user_lat)
        @user.update_attribute(:longitude,user_long)
-     else
-       location = request.location
-       @user.update_attribute(:latitude,location.data['latiitude'])
-       @user.update_attribute(:longitude,location.data['longitude'])
      end
    end
 
