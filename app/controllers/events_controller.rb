@@ -16,7 +16,7 @@ class EventsController < ApplicationController
     @event = @user.events.create(:venue=>event_params[:venue])
     @event.update(:start_time => event_params[:start_time].to_datetime,
                   :end_time => event_params[:end_time].to_datetime,
-                  :wingman_gender => event_params[:wingman_gender]
+                  :wingman_gender => event_params[:wingman_gender],
                   :creator_id => @user.id,
                   :creator_id => @user.id,
                   :creator_name => @user.username,
