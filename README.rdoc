@@ -121,8 +121,9 @@ let options: [String:AnyObject] = [
 
            "endpoint": "/events",
            "method": "GET",
-           "body": [
-
+           "body": ["radius":["radius":radius],
+                    "latitude":["latitude":user_latitude], 
+                    "longitude":["longitude":user_longitude]
             ]
            ]
        ]
