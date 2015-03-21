@@ -29,7 +29,7 @@ Please feel free to use a different markup language if you do not plan to run
 
 * User Sign Up
 
-Route: http://localhost:3000/users
+Route: https://cryptic-mesa-8497.herokuapp.com/users
 Request: POST
 Form Data: user[email], user[password], user[username]
 Returns:
@@ -43,7 +43,7 @@ Returns:
 
 * User Update
 
-Route:http://localhost:3000/users/:id
+Route: https://cryptic-mesa-8497.herokuapp.com/users/:id
  Example: http://localhost:3000/users/23
 Request: PUT
 Form Data: user[gender], user[interests]
@@ -78,7 +78,7 @@ Returns:
 
 * Events Index
 
-Route: http://localhost:3000//events
+Route: https://cryptic-mesa-8497.herokuapp.com/events
 Request: GET
 Returns:
 {
@@ -138,7 +138,7 @@ Returns:
 }
 
 * Events create
-Route: http://localhost:3000//events
+Route: https://cryptic-mesa-8497.herokuapp.com/events
 Request: POST
 Form data: event[venue] = Sidebar
 

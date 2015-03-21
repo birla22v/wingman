@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
   has_many :attendees
   has_and_belongs_to_many :interests
   has_many :events, through: :attendees
+  has_many :user_conversations
+  has_many :conversations, through: :user_conversations
+  has_many :messages
   before_save :ensure_authentication_token
   has_attached_file :avatar, :styles => { :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
@@ -18,8 +21,6 @@ class User < ActiveRecord::Base
        self.authentication_token = generate_authentication_token
      end
    end
-
-
 
    def self.find_for_database_authentication(warden_conditions)
       conditions = warden_conditions.dup
