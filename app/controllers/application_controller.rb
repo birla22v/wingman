@@ -24,12 +24,11 @@ class ApplicationController < ActionController::Base
    end
 
    def set_location!
-     user_lat = params[:latitude].presence
-     user_long = params[:longitude].presence
+     user_lat = params[:latitude]
+     user_long = params[:longitude]
      @user = current_user
      if user_lat && user_long
-       @user.update_attribute(:latitude,user_lat)
-       @user.update_attribute(:longitude,user_long)
+       @user.update(:latitude => user_lat,:longitude =>user_long)
      end
    end
 
