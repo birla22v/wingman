@@ -3,33 +3,13 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
 
 * User Sign Up
 
-Route: http://localhost:3000/users
+Route: https://cryptic-mesa-8497.herokuapp.com/users
 Request: POST
 Form Data: user[email], user[password], user[username]
 Returns:
@@ -41,14 +21,66 @@ Returns:
     }
 }
 
+Data:
+let options: [String:AnyObject] = [
+
+           "endpoint": "/users",
+           "method": "POST",
+           "body": [
+
+               "user": [ "username": username, "email": email, "password": password ]
+
+
+           ]
+       ]
+* User Sign In
+Data:
+Need auth token in the header
+let options: [String:AnyObject] = [
+
+           "endpoint": "/users/sign_in",
+           "method": "POST",
+           "body": [
+
+               "user": [ "username": username, "password": password ]
+
+
+           ]
+       ]
+
+Returns:
+{
+    "user": {
+        "email": "test25@test.com",
+        "username": "Apple1",
+        "authentication_token": "8Q8BdF-LwGwktjefGkuU"
+    }
+}
+
+
 * User Update
 
-Route:http://localhost:3000/users/:id
+Route: https://cryptic-mesa-8497.herokuapp.com/users/:id
  Example: http://localhost:3000/users/23
 Request: PUT
 Form Data: user[gender], user[interests]
  Example: user[gender] = "male"
           user[interests] = "singing, dancing, programming"
+
+Data:
+Need authentication-token in the header...
+let options: [String:AnyObject] = [
+
+           "endpoint": "/users/:id",
+           "method": "PUT",
+           "body": [
+
+               "user": [ "gender": gender, "interests": interests]
+
+
+           ]
+       ]
+
 Returns:
 {
     "user": {
@@ -76,10 +108,23 @@ Returns:
     ]
 }
 
+
 * Events Index
 
-Route: http://localhost:3000//events
+Route: https://cryptic-mesa-8497.herokuapp.com/events
 Request: GET
+
+Data:
+Need authentication-token in the header...
+let options: [String:AnyObject] = [
+
+           "endpoint": "/events",
+           "method": "GET",
+           "body": []
+           ]
+       ]
+
+
 Returns:
 {
     "events": [
@@ -138,7 +183,7 @@ Returns:
 }
 
 * Events create
-Route: http://localhost:3000//events
+Route: https://cryptic-mesa-8497.herokuapp.com/events
 Request: POST
 Form data: event[venue] = Sidebar
 
