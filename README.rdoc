@@ -110,10 +110,21 @@ Returns:
 
 
 * Events Index
-Revise!!!!
 
 Route: https://cryptic-mesa-8497.herokuapp.com/events
 Request: GET
+
+Data:
+Need authentication-token in the header...
+let options: [String:AnyObject] = [
+
+           "endpoint": "/events",
+           "method": "GET",
+           "body": [
+            
+            ]
+           ]
+       ]
 
 
 Returns:
@@ -199,7 +210,7 @@ event[wingman_gender]= "female"
 Returns:
 {
     "event": {
-        "id": 26,
+        "id": 1,
         "venue": "Sidebar, Atlanta, GA",
         "latitude": 33.7513172,
         "longitude": -84.4131323,
@@ -208,9 +219,9 @@ Returns:
         "wingman_gender": null,
         "radius": null,
         "creator_id": 1,
-        "creator_gender": "male",
-        "creator_name": "Blah",
-        "creator_interests": "dancing, programming",
+        "creator_gender": "female",
+        "creator_name": "Apple",
+        "creator_interests": "singing, dancing, playing",
         "distance": null,
         "creator_phone_number": null,
         "creator_age": null
