@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  #before_action :set_location!
+  before_action :set_location!
 
   def authenticate_user_from_token!
      user_token = request.headers['authentication-token']
@@ -30,10 +30,6 @@ class ApplicationController < ActionController::Base
      if user_lat && user_long
        @user.update_attribute(:latitude,user_lat)
        @user.update_attribute(:longitude,user_long)
-     else
-       location = request.location
-       @user.update_attribute(:latitude,location.data['latiitude'])
-       @user.update_attribute(:longitude,location.data['longitude'])
      end
    end
 
