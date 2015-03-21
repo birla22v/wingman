@@ -15,10 +15,11 @@ Form Data: user[email], user[password], user[username]
 Returns:
 {
     "user": {
-        "email": "test22@test.com",
-        "username": "Bob3",
-        "authentication_token": "VemZ6NH3xLbDRg3YFW-P"
-    }
+        "email": "gaga@test.com",
+        "username": "Tada",
+        "authentication_token": "z_HSqDtZdmZHZsMnZGBP"
+    },
+    "user_id": 8
 }
 
 Data:
@@ -121,7 +122,7 @@ let options: [String:AnyObject] = [
            "endpoint": "/events",
            "method": "GET",
            "body": [
-            
+
             ]
            ]
        ]
