@@ -110,19 +110,10 @@ Returns:
 
 
 * Events Index
+Revise!!!!
 
 Route: https://cryptic-mesa-8497.herokuapp.com/events
 Request: GET
-
-Data:
-Need authentication-token in the header...
-let options: [String:AnyObject] = [
-
-           "endpoint": "/events",
-           "method": "GET",
-           "body": []
-           ]
-       ]
 
 
 Returns:
@@ -185,22 +176,40 @@ Returns:
 * Events create
 Route: https://cryptic-mesa-8497.herokuapp.com/events
 Request: POST
-Form data: event[venue] = Sidebar
+
+Data:
+Need authentication-token in the header...
+let options: [String:AnyObject] = [
+
+           "endpoint": "/events",
+           "method": "POST",
+           "body": [
+              "event": [ "venue": venue, "start_time": start_time,
+              "end_time": end_time, "wingman_gender" : seeking_gender]
+            ]
+           ]
+       ]
+
+Example
+event[venue] = "Sidebar, Atlanta, GA"
+event[start_time] = "2015-03-21T18:08:33"
+event[end_time] = "2015-03-21T21:08:33"
+event[wingman_gender]= "female"
 
 Returns:
 {
     "event": {
-        "id": 14,
-        "venue": "Sidebar",
-        "latitude": null,
-        "longitude": null,
-        "start_time": null,
-        "end_time": null,
+        "id": 26,
+        "venue": "Sidebar, Atlanta, GA",
+        "latitude": 33.7513172,
+        "longitude": -84.4131323,
+        "start_time": "2015-03-21T18:08:33.000Z",
+        "end_time": "2015-03-21T21:08:33.000Z",
         "wingman_gender": null,
         "radius": null,
         "creator_id": 1,
         "creator_gender": "male",
-        "creator_name": "Test",
+        "creator_name": "Blah",
         "creator_interests": "dancing, programming",
         "distance": null,
         "creator_phone_number": null,
