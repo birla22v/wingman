@@ -49,11 +49,12 @@ class EventsController < ApplicationController
       if user_lat && user_long
         distance = Geocoder::Calculations.distance_between([user_lat,user_long], [event_lat,event_long])
         @events[i].update_attribute(:distance, distance)
+        if radius
+          @events = @events.where("distance < ?",radius)
+        end
       end
     end
-    if radius
-      @events = @events.where("distance < ?",radius)
-    end
+
     if @events
       render json: {:events => @events}, status: :ok
     else
