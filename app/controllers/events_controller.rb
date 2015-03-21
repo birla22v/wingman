@@ -46,8 +46,10 @@ class EventsController < ApplicationController
     @events.count.times do |i|
       event_lat = @events[i].latitude
       event_long = @events[i].longitude
-      distance = Geocoder::Calculations.distance_between([user_lat,user_long], [event_lat,event_long])
-      @events[i].update_attribute(:distance, distance)
+      if user_lat && user_long
+        distance = Geocoder::Calculations.distance_between([user_lat,user_long], [event_lat,event_long])
+        @events[i].update_attribute(:distance, distance)
+      end
     end
     if radius
       @events = @events.where("distance < ?",radius)
