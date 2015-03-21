@@ -9,6 +9,11 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
   root to: "home#index"
+  post '/conversations', to: 'conversations#create'
+  post '/conversations/:id/messages', to: 'messages#create'
+  put '/conversations/:id', to: 'conversations#join'
+  delete '/conversations/:id', to: 'conversations#destroy'
+  get '/conversations/:id', to: 'conversations#show' #should probably paginate here.
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
