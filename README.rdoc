@@ -66,6 +66,21 @@ Request: PUT
 Form Data: user[gender], user[interests]
  Example: user[gender] = "male"
           user[interests] = "singing, dancing, programming"
+
+Data:
+Need authentication-token in the header...
+let options: [String:AnyObject] = [
+
+           "endpoint": "/users/:id",
+           "method": "PUT",
+           "body": [
+
+               "user": [ "gender": gender, "interests": interests]
+
+
+           ]
+       ]
+
 Returns:
 {
     "user": {
@@ -93,23 +108,23 @@ Returns:
     ]
 }
 
-Data:
-Need authentication-token in the header...
-let options: [String:AnyObject] = [
 
-           "endpoint": "/users/:id",
-           "method": "PUT",
-           "body": [
-
-               "user": [ "gender": gender, "interests": interests]
-
-
-           ]
-       ]
 * Events Index
 
 Route: https://cryptic-mesa-8497.herokuapp.com/events
 Request: GET
+
+Data:
+Need authentication-token in the header...
+let options: [String:AnyObject] = [
+
+           "endpoint": "/events",
+           "method": "GET",
+           "body": []
+           ]
+       ]
+
+
 Returns:
 {
     "events": [
