@@ -13,7 +13,6 @@
      interests = user_params[:interests].gsub(/\s+/, "").split(",")
      interests.count.times do |i|
        @interest = Interest.find_by(name:interests[i])
-       binding.pry
        if @interest && !@user.interests.include?(@interest)
          @interest.users << @user
        elsif !@interest

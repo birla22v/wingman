@@ -7,7 +7,8 @@ class ApplicationController < ActionController::Base
   #before_action :set_location!
 
   def authenticate_user_from_token!
-     user_token = params[:auth_token].presence
+     user_token = request.headers['authentication-token']
+     user_token ||= params[:auth_token].presence
      user       = user_token && User.find_by_authentication_token(user_token)
 
      if user

@@ -94,7 +94,7 @@ Returns:
 }
 
 Data:
-Need auth_token in the header...
+Need authentication-token in the header...
 let options: [String:AnyObject] = [
 
            "endpoint": "/users/:id",
