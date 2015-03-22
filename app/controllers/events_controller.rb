@@ -13,18 +13,26 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = @user.events.create(event_params)
-    @event.update_attribute(:creator_id, @user.id)
-    @event.update_attribute(:creator_name, @user.username)
-    @event.update_attribute(:creator_gender, @user.gender)
-    @event.update_attribute(:creator_phone_number, @user.phone_number)
-    @event.update_attribute(:creator_age, @user.age)
-    set_location
+    @event = @user.events.create(:venue=>event_params[:venue],
+                                 :latitude =>event_params[:latitude],
+                                 :longitude =>event_params[:longitude])
+    @event.update(:start_time => event_params[:start_time].to_datetime,
+                  :end_time => event_params[:end_time].to_datetime,
+                  :wingman_gender => event_params[:wingman_gender],
+                  :creator_id => @user.id,
+                  :creator_id => @user.id,
+                  :creator_name => @user.username,
+                  :creator_gender => @user.gender,
+                  :creator_phone_number=> @user.phone_number,
+                  :creator_age => @user.age,
+                  :num_people => 1)
+    #set_location
     interests=[]
     @user.interests.count.times do |i|
         interests<< @user.interests[i].name
     end
     @event.update_attribute(:creator_interests, interests.join(", "))
+    @event.users << @user
     if @event.save
       render json: {:event=>@event}, status: :ok
     else
@@ -35,15 +43,19 @@ class EventsController < ApplicationController
   def index
     radius = params[:radius]
     @events = Event.where("wingman_gender = ? OR wingman_gender is NULL",@user.gender)
-    @events = @events.where("end_time < ?",DateTime.now)
+    @events = @events.where("end_time > ? AND num_people < ?",DateTime.now,2)
     #distance from event
     user_lat = @user.latitude
     user_long = @user.longitude
     @events.count.times do |i|
       event_lat = @events[i].latitude
       event_long = @events[i].longitude
-      distance = Geocoder::Calculations.distance_between([user_lat,user_long], [event_lat,event_long])
-      @events[i].update_attribute(:distance, distance)
+      if user_lat && user_long
+        distance = Geocoder::Calculations.distance_between([user_lat,user_long], [event_lat,event_long])
+        @events[i].update_attribute(:distance, distance)
+      else
+        @events[i].update_attribute(:distance, nil)
+      end
     end
     if radius
       @events = @events.where("distance < ?",radius)
@@ -57,15 +69,14 @@ class EventsController < ApplicationController
 
   def join
     @event = Event.find(params[:id])
-    if !@event.users.include?(@user) && @user.id!=@event.creator_id
+    if !@event.users.include?(@user) && @user.id!=@event.creator_id && @event.num_people < 2
       @event.users << @user
+      @event.update_attribute(:num_people, (@event.num_people+=1))
+      render json: {:attendees => @event.users}
+    else
+      render json: {:message => "You're already a part of event or event is full"}
     end
-    render json: {:attendees => @event.users}
   end
-  # def find_address
-  #   @event.venue
-  # end
-
 
   private
   def event_params

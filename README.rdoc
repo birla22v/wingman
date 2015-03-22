@@ -15,10 +15,11 @@ Form Data: user[email], user[password], user[username]
 Returns:
 {
     "user": {
-        "email": "test22@test.com",
-        "username": "Bob3",
-        "authentication_token": "VemZ6NH3xLbDRg3YFW-P"
-    }
+        "email": "gaga@test.com",
+        "username": "Tada",
+        "authentication_token": "z_HSqDtZdmZHZsMnZGBP"
+    },
+    "user_id": 8
 }
 
 Data:
@@ -120,7 +121,11 @@ let options: [String:AnyObject] = [
 
            "endpoint": "/events",
            "method": "GET",
-           "body": []
+
+           "body": ["radius":["radius":radius],
+                    "latitude":["latitude":user_latitude],
+                    "longitude":["longitude":user_longitude]
+            ]
            ]
        ]
 
@@ -129,53 +134,53 @@ Returns:
 {
     "events": [
         {
-            "latitude": 42.700124,
-            "longitude": -75.922749,
-            "id": 5,
-            "venue": "116 MLK Junior Drive NW, Atlanta, GA-30309",
-            "start_time": null,
-            "end_time": "2015-03-13T20:56:03.904Z",
-            "wingman_gender": "male",
-            "radius": null,
-            "creator_id": null,
-            "creator_gender": null,
-            "creator_name": null,
-            "creator_interests": null,
-            "distance": 50.77729450486319,
-            "creator_phone_number": null,
-            "creator_age": null
-        },
-        {
-            "latitude": 42.700124,
-            "longitude": -76.922749,
-            "id": 6,
-            "venue": null,
-            "start_time": null,
-            "end_time": "2015-03-13T19:41:22.752Z",
+            "latitude": 33.7513172,
+            "longitude": -84.4131323,
+            "id": 1,
+            "venue": "Sidebar, Atlanta, GA",
+            "start_time": "2015-03-21T18:08:33.000Z",
+            "end_time": "2015-03-21T21:08:33.000Z",
             "wingman_gender": null,
             "radius": null,
-            "creator_id": null,
-            "creator_gender": null,
-            "creator_name": null,
-            "creator_interests": null,
-            "distance": 101.55281046531658,
+            "creator_id": 1,
+            "creator_gender": "female",
+            "creator_name": "Apple",
+            "creator_interests": "singing, dancing, playing",
+            "distance": null,
             "creator_phone_number": null,
             "creator_age": null
         },
         {
-            "latitude": 42.700124,
-            "longitude": -83.922749,
-            "id": 12,
-            "venue": "Peachtree",
-            "start_time": "2015-03-15T20:36:01.428Z",
-            "end_time": "2015-03-16T01:36:01.428Z",
-            "wingman_gender": "male",
+            "latitude": 33.7489954,
+            "longitude": -84.3879824,
+            "id": 3,
+            "venue": "The Nook, Atlanta, GA",
+            "start_time": "2015-03-21T20:08:33.000Z",
+            "end_time": "2015-03-21T22:08:33.000Z",
+            "wingman_gender": null,
             "radius": null,
             "creator_id": 1,
-            "creator_gender": null,
-            "creator_name": null,
-            "creator_interests": "dancing,programming,",
-            "distance": 456.7819834619626,
+            "creator_gender": "female",
+            "creator_name": "Apple",
+            "creator_interests": "singing, dancing, playing",
+            "distance": null,
+            "creator_phone_number": null,
+            "creator_age": null
+        },
+        {
+            "latitude": 33.7489954,
+            "longitude": -84.3879824,
+            "id": 4,
+            "venue": "Tin Lizzys, Atlanta, GA",
+            "start_time": "2015-03-21T20:08:33.000Z",
+            "end_time": "2015-03-21T22:08:33.000Z",
+            "wingman_gender": "female",
+            "radius": null,
+            "creator_id": 1,
+            "creator_gender": "female",
+            "creator_name": "Apple",
+            "creator_interests": "singing, dancing, playing",
+            "distance": null,
             "creator_phone_number": null,
             "creator_age": null
         }
@@ -185,25 +190,83 @@ Returns:
 * Events create
 Route: https://cryptic-mesa-8497.herokuapp.com/events
 Request: POST
-Form data: event[venue] = Sidebar
+
+Data:
+Need authentication-token in the header...
+let options: [String:AnyObject] = [
+
+           "endpoint": "/events",
+           "method": "POST",
+           "body": [
+              "event": [ "venue": venue, "latitude":latitude, "longitude":longitude,
+              "start_time": start_time, "end_time": end_time,
+              "wingman_gender" : seeking_gender]
+            ]
+           ]
+       ]
+
+Example
+event[venue] = "Sidebar, Atlanta, GA"
+event[start_time] = "2015-03-21T18:08:33"
+event[end_time] = "2015-03-21T21:08:33"
+event[wingman_gender]= "female"
 
 Returns:
 {
     "event": {
-        "id": 14,
-        "venue": "Sidebar",
-        "latitude": null,
-        "longitude": null,
-        "start_time": null,
-        "end_time": null,
+        "id": 1,
+        "venue": "Sidebar, Atlanta, GA",
+        "latitude": 33.7513172,
+        "longitude": -84.4131323,
+        "start_time": "2015-03-21T18:08:33.000Z",
+        "end_time": "2015-03-21T21:08:33.000Z",
         "wingman_gender": null,
         "radius": null,
         "creator_id": 1,
-        "creator_gender": "male",
-        "creator_name": "Test",
-        "creator_interests": "dancing, programming",
+        "creator_gender": "female",
+        "creator_name": "Apple",
+        "creator_interests": "singing, dancing, playing",
         "distance": null,
         "creator_phone_number": null,
         "creator_age": null
     }
+}
+
+* Events Join
+Route: https://cryptic-mesa-8497.herokuapp.com/events/:id/join
+Request: PUT
+
+Data:
+Need authentication-token in the header...
+let options: [String:AnyObject] = [
+
+           "endpoint": "/events/:id/join",
+           "method": "PUT",
+           "body": [
+
+            ]
+           ]
+       ]
+Returns:
+Successful:
+{
+    "attendees": [
+        {
+            "email": "test1@test.com",
+            "username": "Blah",
+            "authentication_token": "T6cGXc46mskhLkPUUpeL"
+        },
+        {
+            "email": "test2@test.com",
+            "username": null,
+            "authentication_token": "Ar1w9pTF7f7ygjiE6CoU"
+        }
+    ]
+}
+
+
+
+Unsuccessful:
+{
+    "message": "You're already a part of event or event is full"
 }

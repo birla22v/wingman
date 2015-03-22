@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  #before_action :set_location!
+  before_action :set_location!
 
   def authenticate_user_from_token!
      user_token = request.headers['authentication-token']
@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
        # for every request. If you want the token to work as a
        # sign in token, you can simply remove store: false.
        sign_in user, store: false
+
      else
        render json: { :error => "Authentication Failure!" },
               status: :unauthenticated
@@ -24,16 +25,11 @@ class ApplicationController < ActionController::Base
    end
 
    def set_location!
-     user_lat = params[:latitude].presence
-     user_long = params[:longitude].presence
+     user_lat = params[:latitude]
+     user_long = params[:longitude]
      @user = current_user
      if user_lat && user_long
-       @user.update_attribute(:latitude,user_lat)
-       @user.update_attribute(:longitude,user_long)
-     else
-       location = request.location
-       @user.update_attribute(:latitude,location.data['latiitude'])
-       @user.update_attribute(:longitude,location.data['longitude'])
+       @user.update(:latitude => user_lat,:longitude =>user_long)
      end
    end
 
