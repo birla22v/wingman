@@ -52,11 +52,18 @@ let options: [String:AnyObject] = [
 Returns:
 {
     "user": {
-        "email": "test25@test.com",
-        "username": "Apple1",
-        "authentication_token": "8Q8BdF-LwGwktjefGkuU"
-    }
+        "email": "test1@test.com",
+        "username": "Blah",
+        "authentication_token": "T6cGXc46mskhLkPUUpeL"
+    },
+    "user_id": 1
 }
+
+* Sign Out
+Route: https://cryptic-mesa-8497.herokuapp.com/users/sign_out
+Request: DELETE
+Need authentication-token in the header...
+
 
 
 * User Update
