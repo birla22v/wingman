@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
      user_token = request.headers['authentication-token']
      user_token ||= params[:auth_token].presence
      user       = user_token && User.find_by_authentication_token(user_token)
-
+     binding.pry
      if user
        # Notice we are passing store false, so the user is not
        # actually stored in the session and a token is needed
