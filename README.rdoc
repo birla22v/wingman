@@ -185,8 +185,53 @@ Returns:
         }
     ]
 }
+* Events create - how it is
+Route: https://cryptic-mesa-8497.herokuapp.com/events
+Request: POST
 
-* Events create
+Data:
+Need authentication-token in the header...
+let options: [String:AnyObject] = [
+
+           "endpoint": "/events",
+           "method": "POST",
+           "body": [
+              "event": [ "venue": string, "latitude":float, "longitude":float,
+              "start_time_string": string, "end_time_string": string,
+              "wingman_gender" : string]
+            ]
+           ]
+       ]
+
+Example
+event[venue] = "Sidebar, Atlanta, GA"
+event[start_time] = "2015-03-21T18:08:33"
+event[end_time] = "2015-03-21T21:08:33"
+event[wingman_gender]= "female"
+
+Returns:
+{
+    "event": {
+        "id": 1,
+        "venue": "Sidebar, Atlanta, GA",
+        "latitude": 33.7513172,
+        "longitude": -84.4131323,
+        "start_time": "2015-03-21T18:08:33.000Z",
+        "end_time": "2015-03-21T21:08:33.000Z",
+        "wingman_gender": null,
+        "radius": null,
+        "creator_id": 1,
+        "creator_gender": "female",
+        "creator_name": "Apple",
+        "creator_interests": "singing, dancing, playing",
+        "distance": null,
+        "creator_phone_number": null,
+        "creator_age": null
+    }
+}
+
+
+* Events create - How it should be
 Route: https://cryptic-mesa-8497.herokuapp.com/events
 Request: POST
 

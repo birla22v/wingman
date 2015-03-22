@@ -18,6 +18,8 @@ class EventsController < ApplicationController
                                  :longitude =>event_params[:longitude])
     @event.update(#:start_time => event_params[:start_time].to_datetime,
                   #:end_time => event_params[:end_time].to_datetime,
+                  :start_time_string => event_params[:start_time_string],
+                  :end_time_string => event_params[:end_time_string],
                   :wingman_gender => event_params[:wingman_gender],
                   :creator_id => @user.id,
                   :creator_id => @user.id,
@@ -81,7 +83,7 @@ class EventsController < ApplicationController
   private
   def event_params
     params.require(:event).permit(:venue,:latitude, :longitude, :start_time, :end_time,
-                    :wingman_gender, :radius)
+                    :wingman_gender, :radius, :start_time_string, :end_time_string)
   end
 
   def set_user
