@@ -230,3 +230,19 @@ Returns:
         "creator_age": null
     }
 }
+
+* Events Join
+Route: https://cryptic-mesa-8497.herokuapp.com/events/:id/join
+Request: PUT
+
+Data:
+Need authentication-token in the header...
+let options: [String:AnyObject] = [
+
+           "endpoint": "/events/:id/join",
+           "method": "PUT",
+           "body": [
+          
+            ]
+           ]
+       ]

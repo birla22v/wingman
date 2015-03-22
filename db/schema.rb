@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150316200215) do
+ActiveRecord::Schema.define(version: 20150322183047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,11 @@ ActiveRecord::Schema.define(version: 20150316200215) do
   create_table "attendees", force: :cascade do |t|
     t.integer "user_id"
     t.integer "event_id"
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -36,6 +41,7 @@ ActiveRecord::Schema.define(version: 20150316200215) do
     t.float    "distance"
     t.string   "creator_phone_number"
     t.integer  "creator_age"
+    t.integer  "num_people",           default: 0
   end
 
   create_table "interests", force: :cascade do |t|
@@ -50,6 +56,27 @@ ActiveRecord::Schema.define(version: 20150316200215) do
 
   add_index "interests_users", ["interest_id"], name: "index_interests_users_on_interest_id", using: :btree
   add_index "interests_users", ["user_id"], name: "index_interests_users_on_user_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.text     "body"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "user_id"
+    t.integer  "conversation_id"
+  end
+
+  add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
+
+  create_table "user_conversations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "conversation_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "user_conversations", ["conversation_id"], name: "index_user_conversations_on_conversation_id", using: :btree
+  add_index "user_conversations", ["user_id"], name: "index_user_conversations_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -73,8 +100,8 @@ ActiveRecord::Schema.define(version: 20150316200215) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "authentication_token"
-    t.string   "phone_number"
     t.integer  "age"
+    t.string   "phone_number"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree

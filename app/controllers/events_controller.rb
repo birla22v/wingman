@@ -24,13 +24,15 @@ class EventsController < ApplicationController
                   :creator_name => @user.username,
                   :creator_gender => @user.gender,
                   :creator_phone_number=> @user.phone_number,
-                  :creator_age => @user.age)
+                  :creator_age => @user.age,
+                  :num_people => 1)
     #set_location
     interests=[]
     @user.interests.count.times do |i|
         interests<< @user.interests[i].name
     end
     @event.update_attribute(:creator_interests, interests.join(", "))
+    @event.users << @user
     if @event.save
       render json: {:event=>@event}, status: :ok
     else
@@ -41,7 +43,7 @@ class EventsController < ApplicationController
   def index
     radius = params[:radius]
     @events = Event.where("wingman_gender = ? OR wingman_gender is NULL",@user.gender)
-    @events = @events.where("end_time < ?",DateTime.now)
+    @events = @events.where("end_time > ? AND num_people < ?",DateTime.now,2)
     #distance from event
     user_lat = @user.latitude
     user_long = @user.longitude
@@ -67,15 +69,14 @@ class EventsController < ApplicationController
 
   def join
     @event = Event.find(params[:id])
-    if !@event.users.include?(@user) && @user.id!=@event.creator_id
+    if !@event.users.include?(@user) && @user.id!=@event.creator_id && @event.num_people < 2
       @event.users << @user
+      @event.update_attribute(:num_people, (@event.num_people+=1))
+      render json: {:attendees => @event.users}
+    else
+      render json: {:message => "You're already a part of event or event is full"}
     end
-    render json: {:attendees => @event.users}
   end
-  # def find_address
-  #   @event.venue
-  # end
-
 
   private
   def event_params
