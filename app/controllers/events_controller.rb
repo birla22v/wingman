@@ -15,13 +15,13 @@ class EventsController < ApplicationController
   def create
     @event = @user.events.create(:venue=>event_params[:venue],
                                  :latitude =>event_params[:latitude],
-                                 :longitude =>event_params[:longitude])
-    @event.update(#:start_time => event_params[:start_time].to_datetime,
-                  #:end_time => event_params[:end_time].to_datetime,
-                  :start_time_string => event_params[:start_time_string],
-                  :end_time_string => event_params[:end_time_string],
-                  :wingman_gender => event_params[:wingman_gender],
-                  :creator_id => @user.id,
+                                 :longitude =>event_params[:longitude],
+                                 :start_time_string => event_params[:start_time_string],
+                                 :end_time_string => event_params[:end_time_string],
+                                 :wingman_gender => event_params[:wingman_gender])
+    # @event.update(:start_time => event_params[:start_time].to_datetime,
+    #               :end_time => event_params[:end_time].to_datetime)
+    @event.update_attributes(:creator_id => @user.id,
                   :creator_id => @user.id,
                   :creator_name => @user.username,
                   :creator_gender => @user.gender,
