@@ -242,7 +242,30 @@ let options: [String:AnyObject] = [
            "endpoint": "/events/:id/join",
            "method": "PUT",
            "body": [
-          
+
             ]
            ]
        ]
+Returns:
+Successful:
+{
+    "attendees": [
+        {
+            "email": "test1@test.com",
+            "username": "Blah",
+            "authentication_token": "T6cGXc46mskhLkPUUpeL"
+        },
+        {
+            "email": "test2@test.com",
+            "username": null,
+            "authentication_token": "Ar1w9pTF7f7ygjiE6CoU"
+        }
+    ]
+}
+
+
+
+Unsuccessful:
+{
+    "message": "You're already a part of event or event is full"
+}
