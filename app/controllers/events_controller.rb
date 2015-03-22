@@ -14,7 +14,7 @@ class EventsController < ApplicationController
 
   def create
     @event = @user.events.create(:venue=>event_params[:venue],
-                                 :latitude =>event_params[:latitude]
+                                 :latitude =>event_params[:latitude],
                                  :longitude =>event_params[:longitude])
     @event.update(:start_time => event_params[:start_time].to_datetime,
                   :end_time => event_params[:end_time].to_datetime,
