@@ -122,7 +122,7 @@ let options: [String:AnyObject] = [
            "endpoint": "/events",
            "method": "GET",
            "body": ["radius":["radius":radius],
-                    "latitude":["latitude":user_latitude], 
+                    "latitude":["latitude":user_latitude],
                     "longitude":["longitude":user_longitude]
             ]
            ]
@@ -197,8 +197,9 @@ let options: [String:AnyObject] = [
            "endpoint": "/events",
            "method": "POST",
            "body": [
-              "event": [ "venue": venue, "start_time": start_time,
-              "end_time": end_time, "wingman_gender" : seeking_gender]
+              "event": [ "venue": venue, "latitude":latitude, "longitude":longitude,
+              "start_time": start_time, "end_time": end_time,
+              "wingman_gender" : seeking_gender]
             ]
            ]
        ]
