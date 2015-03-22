@@ -13,7 +13,9 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = @user.events.create(:venue=>event_params[:venue])
+    @event = @user.events.create(:venue=>event_params[:venue],
+                                 :latitude =>event_params[:latitude]
+                                 :longitude =>event_params[:longitude])
     @event.update(:start_time => event_params[:start_time].to_datetime,
                   :end_time => event_params[:end_time].to_datetime,
                   :wingman_gender => event_params[:wingman_gender],
@@ -23,7 +25,7 @@ class EventsController < ApplicationController
                   :creator_gender => @user.gender,
                   :creator_phone_number=> @user.phone_number,
                   :creator_age => @user.age)
-    set_location
+    #set_location
     interests=[]
     @user.interests.count.times do |i|
         interests<< @user.interests[i].name
