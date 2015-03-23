@@ -3,6 +3,12 @@ source 'https://rubygems.org'
 #location based things
 gem 'geocoder'
 
+#figaro
+gem 'figaro'
+
+#storage
+gem 'aws-sdk', '< 2.0'
+
 #open console in pry
 gem 'pry-rails'
 

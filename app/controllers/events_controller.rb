@@ -22,12 +22,13 @@ class EventsController < ApplicationController
     # @event.update(:start_time => event_params[:start_time].to_datetime,
     #               :end_time => event_params[:end_time].to_datetime)
     @event.update_attributes(:creator_id => @user.id,
-                  :creator_id => @user.id,
                   :creator_name => @user.username,
                   :creator_gender => @user.gender,
                   :creator_phone_number=> @user.phone_number,
                   :creator_age => @user.age,
-                  :num_people => 1)
+                  :num_people => 1
+                  :creator_avatar => @user.avatar)
+                  )
     #set_location
     interests=[]
     @user.interests.count.times do |i|

@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :interests
   has_many :events, through: :attendees, dependent: :destroy
   before_save :ensure_authentication_token
-  has_attached_file :avatar, :styles => { :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  has_attached_file :avatar, :styles => { :medium => "300x300>",:thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   validates :username, :presence => true,:uniqueness => {:case_sensitive => false}
   attr_accessor :login
