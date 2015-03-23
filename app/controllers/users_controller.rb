@@ -22,6 +22,9 @@
      render json: {user: @user, gender: @user.gender, interests: @user.interests}
    end
 
+   def favorites
+   end
+
   private
    def as_json(opts={})
      super(:only => [:id, :email, :username])

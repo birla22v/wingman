@@ -44,7 +44,16 @@ class EventsController < ApplicationController
 
   def index
     radius = params[:radius]
+
     @events = Event.where("wingman_gender = ? OR wingman_gender is NULL",@user.gender)
+    #if user has event created that are active
+    if @user.events.count > 0
+    #spit back events where wingman gender is creator gender and seeking gender is user gender
+      gender = @user.events.uniq.pluck(:wingman_gender)
+      if gender.length == 1
+      @events = @events.where("creator_gender = ?", @user.events.last.wingman_gender)
+      end
+    end
     #@events = @events.where("end_time > ? AND num_people < ?",DateTime.now,2)
     #distance from event
     user_lat = @user.latitude
@@ -78,6 +87,11 @@ class EventsController < ApplicationController
     else
       render json: {:message => "You're already a part of event or event is full"}
     end
+  end
+
+  def like
+    @event = Event.find(params[:id])
+    @favorite_events << @event
   end
 
   private
