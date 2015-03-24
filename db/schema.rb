@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150322212654) do
+ActiveRecord::Schema.define(version: 20150324191630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,9 +41,19 @@ ActiveRecord::Schema.define(version: 20150322212654) do
     t.float    "distance"
     t.string   "creator_phone_number"
     t.integer  "creator_age"
-    t.integer  "num_people",           default: 0
+    t.integer  "num_people",                  default: 0
     t.string   "start_time_string"
     t.string   "end_time_string"
+    t.string   "creator_avatar_file_name"
+    t.string   "creator_avatar_content_type"
+    t.integer  "creator_avatar_file_size"
+    t.datetime "creator_avatar_updated_at"
+    t.integer  "user_id"
+  end
+
+  create_table "favorite_events", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "event_id"
   end
 
   create_table "interests", force: :cascade do |t|

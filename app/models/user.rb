@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
           :authentication_keys => [:username]
   has_many :attendees
+  has_many :favorite_events
   has_and_belongs_to_many :interests
   has_many :events, through: :attendees, dependent: :destroy
   before_save :ensure_authentication_token

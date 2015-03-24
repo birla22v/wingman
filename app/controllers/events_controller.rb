@@ -19,15 +19,11 @@ class EventsController < ApplicationController
                                  :start_time_string => event_params[:start_time_string],
                                  :end_time_string => event_params[:end_time_string],
                                  :wingman_gender => event_params[:wingman_gender])
+    #convert into string object?
     # @event.update(:start_time => event_params[:start_time].to_datetime,
     #               :end_time => event_params[:end_time].to_datetime)
     @event.update_attributes(:creator_id => @user.id,
-                  :creator_id => @user.id,
-                  :creator_name => @user.username,
-                  :creator_gender => @user.gender,
-                  :creator_phone_number=> @user.phone_number,
-                  :creator_age => @user.age,
-                  :num_people => 1)
+                             :num_people => 1)
     #set_location
     interests=[]
     @user.interests.count.times do |i|
@@ -42,6 +38,23 @@ class EventsController < ApplicationController
     end
   end
 
+  def favorite
+    @event = Event.find(params[:id])
+    if @user.favorite_events.where("event_id = ?",@event.id).length == 0
+      @user.favorite_events << FavoriteEvent.create(:user_id => @user, :event_id => @event.id)
+    end
+    render json: {:favorite_events => @user.favorite_events}, status: :ok
+  end
+
+  def unfavorite
+    @event = Event.find(params[:id])
+    if @user.favorite_events.where("event_id = ?",@event.id).length != 0
+      @fav_event =@user.favorite_events.where("event_id = ?",@event.id)
+      @user.favorite_events.delete(@fav_event)
+    end
+    render json: {:favorite_events => @user.favorite_events}, status: :ok
+  end
+
   def index
     radius = params[:radius]
 
@@ -49,30 +62,33 @@ class EventsController < ApplicationController
     #if user has event created that are active
     if @user.events.count > 0
     #spit back events where wingman gender is creator gender and seeking gender is user gender
-      gender = @user.events.uniq.pluck(:wingman_gender)
+      # gender = @user.events.uniq.pluck(:wingman_gender)
+      gender = @user.events.pluck(:wingman_gender).uniq
       if gender.length == 1
       @events = @events.where("creator_gender = ?", @user.events.last.wingman_gender)
       end
     end
     #@events = @events.where("end_time > ? AND num_people < ?",DateTime.now,2)
+    @events = @events.where("num_people < ?",2)
     #distance from event
-    user_lat = @user.latitude
-    user_long = @user.longitude
-    @events.count.times do |i|
-      event_lat = @events[i].latitude
-      event_long = @events[i].longitude
-      if user_lat && user_long
-        distance = Geocoder::Calculations.distance_between([user_lat,user_long], [event_lat,event_long])
-        @events[i].update_attribute(:distance, distance)
-      else
-        @events[i].update_attribute(:distance, nil)
-      end
-    end
-    if radius
-      @events = @events.where("distance < ?",radius)
-    end
+    # user_lat = @user.latitude
+    # user_long = @user.longitude
+    # @events.count.times do |i|
+    #   event_lat = @events[i].latitude
+    #   event_long = @events[i].longitude
+    #   if user_lat && user_long
+    #     distance = Geocoder::Calculations.distance_between([user_lat,user_long], [event_lat,event_long])
+    #     @events[i].update_attribute(:distance, distance)
+    #   else
+    #     @events[i].update_attribute(:distance, nil)
+    #   end
+    # end
+    # if radius
+    #   @events = @events.where("distance < ?",radius)
+    # end
     if @events
-      render json: {:events => @events}, status: :ok
+      render json: {:events => @events.as_json(include: :user(include: :interests))}, status: :ok
+
     else
       render json: {:error => @events.errors}, status: :unprocessable_entity
     end
@@ -80,19 +96,19 @@ class EventsController < ApplicationController
 
   def join
     @event = Event.find(params[:id])
-    if !@event.users.include?(@user) && @user.id!=@event.creator_id && @event.num_people < 2
-      @event.users << @user
+    if !@event.attendees.include?(@user) && @user.id!=@event.creator_id && @event.num_people < 2
+      @event.attendees << Attendee.create(:event_id => @event.id, :user_id => @user.id)
       @event.update_attribute(:num_people, (@event.num_people+=1))
-      render json: {:attendees => @event.users}
+      render json: {:attendees => @event.attendees}
     else
       render json: {:message => "You're already a part of event or event is full"}
     end
   end
 
-  def like
-    @event = Event.find(params[:id])
-    @favorite_events << @event
-  end
+  # def like
+  #   @event = Event.find(params[:id])
+  #   @favorite_events << @event
+  # end
 
   private
   def event_params

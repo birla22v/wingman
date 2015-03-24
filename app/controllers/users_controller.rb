@@ -23,6 +23,8 @@
    end
 
    def favorites
+     @user = User.find(params[:id])
+     render json: {:favorites => @user.favorites}
    end
 
   private
