@@ -87,9 +87,7 @@ class EventsController < ApplicationController
     # if radius
     #   @events = @events.where("distance < ?",radius)
     # end
-    @course.to_json(:include=>{:interaction_outline=>
-                              {:include=> {:tree_node=>
-                                     {:include=> :definition}}}} )
+  
     if @events
       render json: {:events => @events.as_json(:include=>{:user => {include: :interests}})}, status: :ok
 
