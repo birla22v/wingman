@@ -116,6 +116,66 @@ Returns:
         }
     ]
 }
+* Events Index UPDATED!
+{
+    "events": [
+        {
+            "id": 55,
+            "venue": "Tap, Atlanta, GA",
+            "latitude": null,
+            "longitude": null,
+            "start_time": null,
+            "end_time": null,
+            "wingman_gender": "male",
+            "radius": null,
+            "creator_id": 60,
+            "creator_gender": "female",
+            "creator_name": null,
+            "creator_interests": "singing, music, bouncing",
+            "distance": null,
+            "creator_phone_number": null,
+            "creator_age": null,
+            "num_people": 1,
+            "start_time_string": "2",
+            "end_time_string": "3",
+            "user_id": 60,
+            "user": {
+                "id": 60,
+                "email": "bubbly@test.com",
+                "created_at": "2015-03-25T15:42:01.302Z",
+                "updated_at": "2015-03-25T16:23:23.994Z",
+                "gender": "male",
+                "username": "bubbly",
+                "avatar_file_name": "bubbles.jpeg",
+                "avatar_content_type": "image/jpeg",
+                "avatar_file_size": 1868,
+                "avatar_updated_at": "2015-03-25T15:55:50.873Z",
+                "latitude": null,
+                "longitude": null,
+                "authentication_token": "VbmQzUtHJ3fehmiGJGB4",
+                "phone_number": null,
+                "age": null,
+                "interests": [
+                    {
+                        "id": 1,
+                        "name": "singing",
+                        "interest_id": null
+                    },
+                    {
+                        "id": 50,
+                        "name": "music",
+                        "interest_id": null
+                    },
+                    {
+                        "id": 51,
+                        "name": "bouncing",
+                        "interest_id": null
+                    }
+                ]
+            }
+        }
+    ]
+}
 
 
 * Events Index
