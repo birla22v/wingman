@@ -24,7 +24,8 @@ class EventsController < ApplicationController
     #               :end_time => event_params[:end_time].to_datetime)
     @event.update_attributes(:creator_id => @user.id,
                              :num_people => 1,
-                             :creator_gender => @user.gender)
+                             :creator_gender => @user.gender
+                             :user_id => @user.id)
     #set_location
     interests=[]
     @user.interests.count.times do |i|
@@ -98,6 +99,7 @@ class EventsController < ApplicationController
 
   def join
     @event = Event.find(params[:id])
+    #if you already have an event at that time, you can't join it
     if !@event.attendees.include?(@user) && @user.id!=@event.creator_id && @event.num_people < 2
       @event.attendees << Attendee.create(:event_id => @event.id, :user_id => @user.id)
       @event.update_attribute(:num_people, (@event.num_people+=1))
