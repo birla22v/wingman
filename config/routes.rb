@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   resources :events
   put 'events/:id/join', to: 'events#join', as: 'join_event'
   put 'users/:id', to: 'users#update', as: 'user_update'
-  get 'users/:id/favorites', to 'user#favorites', as: 'user_favorites'
-  put 'events/:id/favorites', to 'events#favorite', as: 'favorite_event'
-  delete 'events/:id/favorites', to 'events#unfavorite', as: 'unfavorite_event'
+  get 'users/:id/favorites', to: 'users#favorites', as: 'user_favorites'
+  put 'events/:id/favorites', to: 'events#favorite', as: 'favorite_event'
+  delete 'events/:id/favorites', to: 'events#unfavorite', as: 'unfavorite_event'
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

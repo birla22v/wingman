@@ -23,7 +23,7 @@ class EventsController < ApplicationController
     # @event.update(:start_time => event_params[:start_time].to_datetime,
     #               :end_time => event_params[:end_time].to_datetime)
     @event.update_attributes(:creator_id => @user.id,
-                             :num_people => 1
+                             :num_people => 1,
                              :creator_gender => @user.gender)
     #set_location
     interests=[]
@@ -87,8 +87,11 @@ class EventsController < ApplicationController
     # if radius
     #   @events = @events.where("distance < ?",radius)
     # end
+    @course.to_json(:include=>{:interaction_outline=>
+                              {:include=> {:tree_node=>
+                                     {:include=> :definition}}}} )
     if @events
-      render json: {:events => @events.as_json(include: :user(include: :interests))}, status: :ok
+      render json: {:events => @events.as_json(:include=>{:user => {include: :interests}})}, status: :ok
 
     else
       render json: {:error => @events.errors}, status: :unprocessable_entity
@@ -105,11 +108,6 @@ class EventsController < ApplicationController
       render json: {:message => "You're already a part of event or event is full"}
     end
   end
-
-  # def like
-  #   @event = Event.find(params[:id])
-  #   @favorite_events << @event
-  # end
 
   private
   def event_params
