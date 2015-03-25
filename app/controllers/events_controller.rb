@@ -24,7 +24,7 @@ class EventsController < ApplicationController
     #               :end_time => event_params[:end_time].to_datetime)
     @event.update_attributes(:creator_id => @user.id,
                              :num_people => 1,
-                             :creator_gender => @user.gender
+                             :creator_gender => @user.gender,
                              :user_id => @user.id)
     #set_location
     interests=[]
