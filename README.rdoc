@@ -69,11 +69,12 @@ Need authentication-token in the header...
 * User Update
 
 Route: https://cryptic-mesa-8497.herokuapp.com/users/:id
- Example: http://localhost:3000/users/23
+ Example: https://cryptic-mesa-8497.herokuapp.com/users/60
 Request: PUT
-Form Data: user[gender], user[interests]
- Example: user[gender] = "male"
-          user[interests] = "singing, dancing, programming"
+Form Data: user[gender], user[interests], user[avatar]
+ Example: user[gender] = "female"
+          user[interests] = "music, singing, bouncing"
+          user[avatar] = bubbles.jpeg
 
 Data:
 Need authentication-token in the header...
@@ -83,7 +84,7 @@ let options: [String:AnyObject] = [
            "method": "PUT",
            "body": [
 
-               "user": [ "gender": gender, "interests": interests]
+               "user": [ "gender": string, "interests": string separated by commas, "avatar":file]
 
 
            ]
@@ -92,25 +93,25 @@ let options: [String:AnyObject] = [
 Returns:
 {
     "user": {
-        "email": "test23@test.com",
-        "username": "Bob2",
-        "authentication_token": "Y7EC3-yPunpUW667Pa-3"
+        "email": "bubbly@test.com",
+        "username": "bubbly",
+        "authentication_token": "VbmQzUtHJ3fehmiGJGB4"
     },
-    "gender": "male",
+    "gender": "female",
     "interests": [
         {
-            "id": 2,
-            "name": "dancing",
-            "interest_id": null
-        },
-        {
-            "id": 5,
+            "id": 1,
             "name": "singing",
             "interest_id": null
         },
         {
-            "id": 9,
-            "name": "swimming",
+            "id": 50,
+            "name": "music",
+            "interest_id": null
+        },
+        {
+            "id": 51,
+            "name": "bouncing",
             "interest_id": null
         }
     ]
