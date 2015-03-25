@@ -23,7 +23,8 @@ class EventsController < ApplicationController
     # @event.update(:start_time => event_params[:start_time].to_datetime,
     #               :end_time => event_params[:end_time].to_datetime)
     @event.update_attributes(:creator_id => @user.id,
-                             :num_people => 1)
+                             :num_people => 1
+                             :creator_gender => @user.gender)
     #set_location
     interests=[]
     @user.interests.count.times do |i|
