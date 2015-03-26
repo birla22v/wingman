@@ -367,3 +367,80 @@ Unsuccessful:
 {
     "message": "You're already a part of event or event is full"
 }
+
+EVENTS!
+
+Get events!
+GET
+
+https://cryptic-mesa-8497.herokuapp.com/events
+auth token
+
+Returns:
+{
+    "events": [
+        {
+            "id": 60,
+            "venue": "Farmville",
+            "latitude": null,
+            "longitude": null,
+            "start_time": null,
+            "end_time": null,
+            "wingman_gender": null,
+            "radius": null,
+            "creator_id": 80,
+            "creator_gender": "female",
+            "creator_name": null,
+            "creator_interests": "jello",
+            "distance": null,
+            "creator_phone_number": null,
+            "creator_age": null,
+            "num_people": 1,
+            "start_time_string": null,
+            "end_time_string": null,
+            "user_id": 80,
+            "user": {
+                "id": 80,
+                "email": "coconut6@test.com",
+                "created_at": "2015-03-26T23:07:44.672Z",
+                "updated_at": "2015-03-26T23:12:45.394Z",
+                "gender": "female",
+                "username": "coconut",
+                "avatar_file_name": null,
+                "avatar_content_type": null,
+                "avatar_file_size": null,
+                "avatar_updated_at": null,
+                "latitude": null,
+                "longitude": null,
+                "authentication_token": "8Bxsc_wtdzcYMoybteto",
+                "phone_number": null,
+                "age": null,
+                "image_string": "www.willisawesome.com"
+            }
+        }
+    ]
+}
+
+
+USERS UPDATE
+PUT
+https://cryptic-mesa-8497.herokuapp.com/users/80
+user[gender]: female
+user[interests]: jello
+user[image_string] :www.willisawesome.com
+
+{
+    "user": {
+        "email": "coconut6@test.com",
+        "username": "coconut",
+        "authentication_token": "8Bxsc_wtdzcYMoybteto"
+    },
+    "gender": "female",
+    "interests": [
+        {
+            "id": 57,
+            "name": "jello",
+            "interest_id": null
+        }
+    ]
+}
