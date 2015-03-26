@@ -91,7 +91,7 @@ class EventsController < ApplicationController
 
     if @events
       # render json: {:events => @events.as_json(:include=>{:user => {:methods => [:avatar_url]}})}, status: :ok
-      render json: {:events => @events.as_json(:include=>{:user})}, status: :ok
+      render json: {:events => @events.as_json(:include=>:user)}, status: :ok
 
     else
       render json: {:error => @events.errors}, status: :unprocessable_entity
