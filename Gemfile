@@ -12,13 +12,18 @@ gem 'better_errors'
 #post-gres
 gem 'pg'
 
+#figaro
+gem 'figaro'
+
 # We need CORS for frontend's life to be better! :)
 gem 'rack-cors'
 
 #picture uploads!
-gem 'paperclip','~> 4.2'
+# gem 'paperclip','~> 4.2'
+gem 'paperclip', github: 'thoughtbot/paperclip'
 
-gem 'aws-sdk'
+#storage
+gem 'aws-sdk', '< 2.0'
 
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

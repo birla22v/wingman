@@ -34,6 +34,6 @@
    end
 
    def user_params
-    params.require(:user).permit(:avatar, :gender, :username, :latitude, :longitude, :interests)
+    params.require(:user).permit(:avatar, :gender, :username, :latitude, :longitude, :interests, :image_string)
    end
  end
