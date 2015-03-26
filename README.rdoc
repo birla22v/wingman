@@ -117,16 +117,18 @@ Returns:
     ]
 }
 * Events Index UPDATED!
+https://cryptic-mesa-8497.herokuapp.com/events
+authentication-token : KsEKRjtayQsWueLD7ZSm
 {
     "events": [
         {
-            "id": 55,
-            "venue": "Tap, Atlanta, GA",
+            "id": 54,
+            "venue": "Sidebar, Atlanta, GA",
             "latitude": null,
             "longitude": null,
             "start_time": null,
             "end_time": null,
-            "wingman_gender": "male",
+            "wingman_gender": "female",
             "radius": null,
             "creator_id": 60,
             "creator_gender": "female",
@@ -136,48 +138,31 @@ Returns:
             "creator_phone_number": null,
             "creator_age": null,
             "num_people": 1,
-            "start_time_string": "2",
-            "end_time_string": "3",
-            "user_id": 60,
+            "start_time_string": "1",
+            "end_time_string": "2",
+            "user_id": 25,
             "user": {
-                "id": 60,
-                "email": "bubbly@test.com",
-                "created_at": "2015-03-25T15:42:01.302Z",
-                "updated_at": "2015-03-25T16:23:23.994Z",
-                "gender": "male",
-                "username": "bubbly",
-                "avatar_file_name": "bubbles.jpeg",
+                "id": 25,
+                "email": "ebony1@gmail.com",
+                "created_at": "2015-03-22T21:57:35.613Z",
+                "updated_at": "2015-03-26T18:50:28.368Z",
+                "gender": "female",
+                "username": "ebony1",
+                "avatar_file_name": "monkey.jpeg",
                 "avatar_content_type": "image/jpeg",
-                "avatar_file_size": 1868,
-                "avatar_updated_at": "2015-03-25T15:55:50.873Z",
+                "avatar_file_size": 5785,
+                "avatar_updated_at": "2015-03-26T18:50:26.811Z",
                 "latitude": null,
                 "longitude": null,
-                "authentication_token": "VbmQzUtHJ3fehmiGJGB4",
+                "authentication_token": "XWpWCDxGnzjPaoLq-dTn",
                 "phone_number": null,
                 "age": null,
-                "interests": [
-                    {
-                        "id": 1,
-                        "name": "singing",
-                        "interest_id": null
-                    },
-                    {
-                        "id": 50,
-                        "name": "music",
-                        "interest_id": null
-                    },
-                    {
-                        "id": 51,
-                        "name": "bouncing",
-                        "interest_id": null
-                    }
-                ]
+                "image_string": null,
+                "avatar_url": "http://wingmen.s3.amazonaws.com/users/avatars/000/000/025/thumb/monkey.jpeg?1427395826"
             }
         }
     ]
 }
-
-
 * Events Index
 
 Route: https://cryptic-mesa-8497.herokuapp.com/events

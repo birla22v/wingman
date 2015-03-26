@@ -9,7 +9,9 @@
 
    def update
      @user = User.find(params[:id])
-     @user.update_attributes(:gender =>user_params[:gender],:avatar => user_params[:avatar])
+    #  @user.update_attributes(:gender =>user_params[:gender],:avatar => user_params[:avatar])
+    @user.update_attributes(:gender =>user_params[:gender],:image_string => user_params[:image_string])
+
      interests = user_params[:interests].gsub(/\s+/, "").split(",")
      interests.count.times do |i|
        @interest = Interest.find_by(name:interests[i])
