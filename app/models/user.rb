@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   # before_save :decode_image_data
   #
   # def decode_image_data
-  #
+  #     self.image_data = user_params[:image_data]
   #     if self.image_data.present?
   #         # If image_data is present, it means that we were sent an image over
   #         # JSON and it needs to be decoded.  After decoding, the image is processed
@@ -39,6 +39,9 @@ class User < ActiveRecord::Base
      end
    end
 
+   def avatar_url
+        avatar.url(:thumb)
+    end
 
 
    def self.find_for_database_authentication(warden_conditions)
